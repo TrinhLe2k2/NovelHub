@@ -1,2 +1,2 @@
 # NovelHub
-FullStack with ASP.NET MVC
+FullStack with ASP.NET MVC & MS SQL

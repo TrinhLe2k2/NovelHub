@@ -1,0 +1,953 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NovelHubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BlacklistedNovels">
+          <Key>
+            <PropertyRef Name="BlacklistedNovelID" />
+          </Key>
+          <Property Name="BlacklistedNovelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NovelID" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="BlacklistedUsers">
+          <Key>
+            <PropertyRef Name="BlacklistedUserID" />
+          </Key>
+          <Property Name="BlacklistedUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Chapters">
+          <Key>
+            <PropertyRef Name="ChapterID" />
+          </Key>
+          <Property Name="ChapterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NovelID" Type="int" />
+          <Property Name="ChapterNumber" Type="int" />
+          <Property Name="ChapterTitle" Type="nvarchar(max)" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Views" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChapterID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CommentText" Type="nvarchar(max)" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FavoriteNovels">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="NovelID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="NovelID" Type="int" Nullable="false" />
+          <Property Name="FavoritedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NovelCategories">
+          <Key>
+            <PropertyRef Name="NovelID" />
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="NovelID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Novels">
+          <Key>
+            <PropertyRef Name="NovelID" />
+          </Key>
+          <Property Name="NovelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Author" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Poster" Type="nvarchar(max)" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="LastUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NovelStatuses">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="NovelID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="NovelID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="ReviewText" Type="nvarchar(max)" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="Username" Type="nvarchar" MaxLength="255" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="Avatar" Type="nvarchar(max)" />
+          <Property Name="Background" Type="nvarchar(max)" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Blacklist__Novel__5EBF139D">
+          <End Role="Novels" Type="Self.Novels" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlacklistedNovels" Type="Self.BlacklistedNovels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="BlacklistedNovels">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Blacklist__UserI__5AEE82B9">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlacklistedUsers" Type="Self.BlacklistedUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BlacklistedUsers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Chapters__NovelI__48CFD27E">
+          <End Role="Novels" Type="Self.Novels" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Chapters" Type="Self.Chapters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="Chapters">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__Chapte__17036CC0">
+          <End Role="Chapters" Type="Self.Chapters" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chapters">
+              <PropertyRef Name="ChapterID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="ChapterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__UserID__17F790F9">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FavoriteN__Novel__571DF1D5">
+          <End Role="Novels" Type="Self.Novels" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FavoriteNovels" Type="Self.FavoriteNovels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="FavoriteNovels">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FavoriteN__UserI__5629CD9C">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FavoriteNovels" Type="Self.FavoriteNovels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FavoriteNovels">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NovelCate__Categ__44FF419A">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NovelCategories" Type="Self.NovelCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="NovelCategories">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NovelCate__Novel__440B1D61">
+          <End Role="Novels" Type="Self.Novels" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NovelCategories" Type="Self.NovelCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="NovelCategories">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Novels__UserID__3E52440B">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Novels" Type="Self.Novels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Novels">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__NovelID__5165187F">
+          <End Role="Novels" Type="Self.Novels" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__UserID__52593CB8">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__3A81B327">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Novels_Status">
+          <End Role="NovelStatuses" Type="Self.NovelStatuses" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Novels" Type="Self.Novels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NovelStatuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Novels">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NovelHubModelStoreContainer">
+          <EntitySet Name="BlacklistedNovels" EntityType="Self.BlacklistedNovels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlacklistedUsers" EntityType="Self.BlacklistedUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chapters" EntityType="Self.Chapters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FavoriteNovels" EntityType="Self.FavoriteNovels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NovelCategories" EntityType="Self.NovelCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Novels" EntityType="Self.Novels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NovelStatuses" EntityType="Self.NovelStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Blacklist__Novel__5EBF139D" Association="Self.FK__Blacklist__Novel__5EBF139D">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="BlacklistedNovels" EntitySet="BlacklistedNovels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blacklist__UserI__5AEE82B9" Association="Self.FK__Blacklist__UserI__5AEE82B9">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlacklistedUsers" EntitySet="BlacklistedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chapters__NovelI__48CFD27E" Association="Self.FK__Chapters__NovelI__48CFD27E">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="Chapters" EntitySet="Chapters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__Chapte__17036CC0" Association="Self.FK__Comments__Chapte__17036CC0">
+            <End Role="Chapters" EntitySet="Chapters" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__UserID__17F790F9" Association="Self.FK__Comments__UserID__17F790F9">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FavoriteN__Novel__571DF1D5" Association="Self.FK__FavoriteN__Novel__571DF1D5">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="FavoriteNovels" EntitySet="FavoriteNovels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FavoriteN__UserI__5629CD9C" Association="Self.FK__FavoriteN__UserI__5629CD9C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FavoriteNovels" EntitySet="FavoriteNovels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NovelCate__Categ__44FF419A" Association="Self.FK__NovelCate__Categ__44FF419A">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="NovelCategories" EntitySet="NovelCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NovelCate__Novel__440B1D61" Association="Self.FK__NovelCate__Novel__440B1D61">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="NovelCategories" EntitySet="NovelCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Novels__UserID__3E52440B" Association="Self.FK__Novels__UserID__3E52440B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Novels" EntitySet="Novels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__NovelID__5165187F" Association="Self.FK__Reviews__NovelID__5165187F">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__UserID__52593CB8" Association="Self.FK__Reviews__UserID__52593CB8">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__3A81B327" Association="Self.FK__Users__RoleID__3A81B327">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Novels_Status" Association="Self.FK_Novels_Status">
+            <End Role="NovelStatuses" EntitySet="NovelStatuses" />
+            <End Role="Novels" EntitySet="Novels" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NovelHubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BlacklistedNovel">
+          <Key>
+            <PropertyRef Name="BlacklistedNovelID" />
+          </Key>
+          <Property Name="BlacklistedNovelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NovelID" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Novel" Relationship="Self.FK__Blacklist__Novel__5EBF139D" FromRole="BlacklistedNovels" ToRole="Novels" />
+        </EntityType>
+        <EntityType Name="BlacklistedUser">
+          <Key>
+            <PropertyRef Name="BlacklistedUserID" />
+          </Key>
+          <Property Name="BlacklistedUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Blacklist__UserI__5AEE82B9" FromRole="BlacklistedUsers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Chapter">
+          <Key>
+            <PropertyRef Name="ChapterID" />
+          </Key>
+          <Property Name="ChapterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NovelID" Type="Int32" />
+          <Property Name="ChapterNumber" Type="Int32" />
+          <Property Name="ChapterTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Views" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Novel" Relationship="Self.FK__Chapters__NovelI__48CFD27E" FromRole="Chapters" ToRole="Novels" />
+          <NavigationProperty Name="Comments" Relationship="NovelHubModel.FK__Comments__Chapte__17036CC0" FromRole="Chapter" ToRole="Comment" />
+        </EntityType>
+        <EntityType Name="FavoriteNovel">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="NovelID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="NovelID" Type="Int32" Nullable="false" />
+          <Property Name="FavoritedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Novel" Relationship="Self.FK__FavoriteN__Novel__571DF1D5" FromRole="FavoriteNovels" ToRole="Novels" />
+          <NavigationProperty Name="User" Relationship="Self.FK__FavoriteN__UserI__5629CD9C" FromRole="FavoriteNovels" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="NovelCategory">
+          <Key>
+            <PropertyRef Name="NovelID" />
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="NovelID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Novel" Relationship="Self.FK__NovelCate__Novel__440B1D61" FromRole="NovelCategories" ToRole="Novels" />
+          <NavigationProperty Name="Category" Relationship="NovelHubModel.FK__NovelCate__Categ__44FF419A" FromRole="NovelCategory" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Novel">
+          <Key>
+            <PropertyRef Name="NovelID" />
+          </Key>
+          <Property Name="NovelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Poster" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BlacklistedNovels" Relationship="Self.FK__Blacklist__Novel__5EBF139D" FromRole="Novels" ToRole="BlacklistedNovels" />
+          <NavigationProperty Name="Chapters" Relationship="Self.FK__Chapters__NovelI__48CFD27E" FromRole="Novels" ToRole="Chapters" />
+          <NavigationProperty Name="FavoriteNovels" Relationship="Self.FK__FavoriteN__Novel__571DF1D5" FromRole="Novels" ToRole="FavoriteNovels" />
+          <NavigationProperty Name="NovelCategories" Relationship="Self.FK__NovelCate__Novel__440B1D61" FromRole="Novels" ToRole="NovelCategories" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Novels__UserID__3E52440B" FromRole="Novels" ToRole="Users" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__NovelID__5165187F" FromRole="Novels" ToRole="Reviews" />
+          <Property Name="StatusID" Type="Int32" />
+          <NavigationProperty Name="NovelStatus" Relationship="NovelHubModel.FK_Novels_Status1" FromRole="Novel" ToRole="NovelStatus" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="NovelID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="NovelID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="ReviewText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Novel" Relationship="Self.FK__Reviews__NovelID__5165187F" FromRole="Reviews" ToRole="Novels" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Reviews__UserID__52593CB8" FromRole="Reviews" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleID__3A81B327" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Background" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BlacklistedUsers" Relationship="Self.FK__Blacklist__UserI__5AEE82B9" FromRole="Users" ToRole="BlacklistedUsers" />
+          <NavigationProperty Name="FavoriteNovels" Relationship="Self.FK__FavoriteN__UserI__5629CD9C" FromRole="Users" ToRole="FavoriteNovels" />
+          <NavigationProperty Name="Novels" Relationship="Self.FK__Novels__UserID__3E52440B" FromRole="Users" ToRole="Novels" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__UserID__52593CB8" FromRole="Users" ToRole="Reviews" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleID__3A81B327" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="Comments" Relationship="NovelHubModel.FK__Comments__UserID__17F790F9" FromRole="User" ToRole="Comment" />
+        </EntityType>
+        <Association Name="FK__Blacklist__Novel__5EBF139D">
+          <End Role="Novels" Type="Self.Novel" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlacklistedNovels" Type="Self.BlacklistedNovel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="BlacklistedNovels">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Blacklist__UserI__5AEE82B9">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlacklistedUsers" Type="Self.BlacklistedUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BlacklistedUsers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Chapters__NovelI__48CFD27E">
+          <End Role="Novels" Type="Self.Novel" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Chapters" Type="Self.Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="Chapters">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FavoriteN__Novel__571DF1D5">
+          <End Role="Novels" Type="Self.Novel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FavoriteNovels" Type="Self.FavoriteNovel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="FavoriteNovels">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FavoriteN__UserI__5629CD9C">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FavoriteNovels" Type="Self.FavoriteNovel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FavoriteNovels">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NovelCate__Novel__440B1D61">
+          <End Role="Novels" Type="Self.Novel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NovelCategories" Type="Self.NovelCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="NovelCategories">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Novels__UserID__3E52440B">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Novels" Type="Self.Novel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Novels">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__NovelID__5165187F">
+          <End Role="Novels" Type="Self.Novel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Novels">
+              <PropertyRef Name="NovelID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="NovelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__UserID__52593CB8">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__3A81B327">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NovelHubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BlacklistedNovels" EntityType="Self.BlacklistedNovel" />
+          <EntitySet Name="BlacklistedUsers" EntityType="Self.BlacklistedUser" />
+          <EntitySet Name="Chapters" EntityType="Self.Chapter" />
+          <EntitySet Name="FavoriteNovels" EntityType="Self.FavoriteNovel" />
+          <EntitySet Name="NovelCategories" EntityType="Self.NovelCategory" />
+          <EntitySet Name="Novels" EntityType="Self.Novel" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Blacklist__Novel__5EBF139D" Association="Self.FK__Blacklist__Novel__5EBF139D">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="BlacklistedNovels" EntitySet="BlacklistedNovels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blacklist__UserI__5AEE82B9" Association="Self.FK__Blacklist__UserI__5AEE82B9">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlacklistedUsers" EntitySet="BlacklistedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chapters__NovelI__48CFD27E" Association="Self.FK__Chapters__NovelI__48CFD27E">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="Chapters" EntitySet="Chapters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FavoriteN__Novel__571DF1D5" Association="Self.FK__FavoriteN__Novel__571DF1D5">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="FavoriteNovels" EntitySet="FavoriteNovels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FavoriteN__UserI__5629CD9C" Association="Self.FK__FavoriteN__UserI__5629CD9C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FavoriteNovels" EntitySet="FavoriteNovels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NovelCate__Novel__440B1D61" Association="Self.FK__NovelCate__Novel__440B1D61">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="NovelCategories" EntitySet="NovelCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Novels__UserID__3E52440B" Association="Self.FK__Novels__UserID__3E52440B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Novels" EntitySet="Novels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__NovelID__5165187F" Association="Self.FK__Reviews__NovelID__5165187F">
+            <End Role="Novels" EntitySet="Novels" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__UserID__52593CB8" Association="Self.FK__Reviews__UserID__52593CB8">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__3A81B327" Association="Self.FK__Users__RoleID__3A81B327">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="NovelStatuses" EntityType="NovelHubModel.NovelStatus" />
+          <AssociationSet Name="FK_Novels_Status1" Association="NovelHubModel.FK_Novels_Status1">
+            <End Role="NovelStatus" EntitySet="NovelStatuses" />
+            <End Role="Novel" EntitySet="Novels" />
+          </AssociationSet>
+          <EntitySet Name="Categories" EntityType="NovelHubModel.Category" />
+          <AssociationSet Name="FK__NovelCate__Categ__44FF419A" Association="NovelHubModel.FK__NovelCate__Categ__44FF419A">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="NovelCategory" EntitySet="NovelCategories" />
+          </AssociationSet>
+          <EntitySet Name="Comments" EntityType="NovelHubModel.Comment" />
+          <AssociationSet Name="FK__Comments__Chapte__17036CC0" Association="NovelHubModel.FK__Comments__Chapte__17036CC0">
+            <End Role="Chapter" EntitySet="Chapters" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__UserID__17F790F9" Association="NovelHubModel.FK__Comments__UserID__17F790F9">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="NovelStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Novels" Relationship="NovelHubModel.FK_Novels_Status1" FromRole="NovelStatus" ToRole="Novel" />
+        </EntityType>
+        <Association Name="FK_Novels_Status1">
+          <End Type="NovelHubModel.NovelStatus" Role="NovelStatus" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="NovelHubModel.Novel" Role="Novel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NovelStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Novel">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NovelCategories" Relationship="NovelHubModel.FK__NovelCate__Categ__44FF419A" FromRole="Category" ToRole="NovelCategory" />
+        </EntityType>
+        <Association Name="FK__NovelCate__Categ__44FF419A">
+          <End Type="NovelHubModel.Category" Role="Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="NovelHubModel.NovelCategory" Role="NovelCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="NovelCategory">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChapterID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CommentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Chapter" Relationship="NovelHubModel.FK__Comments__Chapte__17036CC0" FromRole="Comment" ToRole="Chapter" />
+          <NavigationProperty Name="User" Relationship="NovelHubModel.FK__Comments__UserID__17F790F9" FromRole="Comment" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Comments__Chapte__17036CC0">
+          <End Type="NovelHubModel.Chapter" Role="Chapter" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="NovelHubModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chapter">
+              <PropertyRef Name="ChapterID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ChapterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__UserID__17F790F9">
+          <End Type="NovelHubModel.User" Role="User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="NovelHubModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NovelHubModelStoreContainer" CdmEntityContainer="NovelHubEntities">
+          <EntitySetMapping Name="BlacklistedNovels">
+            <EntityTypeMapping TypeName="NovelHubModel.BlacklistedNovel">
+              <MappingFragment StoreEntitySet="BlacklistedNovels">
+                <ScalarProperty Name="BlacklistedNovelID" ColumnName="BlacklistedNovelID" />
+                <ScalarProperty Name="NovelID" ColumnName="NovelID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlacklistedUsers">
+            <EntityTypeMapping TypeName="NovelHubModel.BlacklistedUser">
+              <MappingFragment StoreEntitySet="BlacklistedUsers">
+                <ScalarProperty Name="BlacklistedUserID" ColumnName="BlacklistedUserID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chapters">
+            <EntityTypeMapping TypeName="NovelHubModel.Chapter">
+              <MappingFragment StoreEntitySet="Chapters">
+                <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+                <ScalarProperty Name="NovelID" ColumnName="NovelID" />
+                <ScalarProperty Name="ChapterNumber" ColumnName="ChapterNumber" />
+                <ScalarProperty Name="ChapterTitle" ColumnName="ChapterTitle" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FavoriteNovels">
+            <EntityTypeMapping TypeName="NovelHubModel.FavoriteNovel">
+              <MappingFragment StoreEntitySet="FavoriteNovels">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="NovelID" ColumnName="NovelID" />
+                <ScalarProperty Name="FavoritedAt" ColumnName="FavoritedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NovelCategories">
+            <EntityTypeMapping TypeName="NovelHubModel.NovelCategory">
+              <MappingFragment StoreEntitySet="NovelCategories">
+                <ScalarProperty Name="NovelID" ColumnName="NovelID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Novels">
+            <EntityTypeMapping TypeName="NovelHubModel.Novel">
+              <MappingFragment StoreEntitySet="Novels">
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="NovelID" ColumnName="NovelID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Poster" ColumnName="Poster" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="NovelHubModel.Review">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="NovelID" ColumnName="NovelID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="NovelHubModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="NovelHubModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Background" ColumnName="Background" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NovelStatuses">
+            <EntityTypeMapping TypeName="NovelHubModel.NovelStatus">
+              <MappingFragment StoreEntitySet="NovelStatuses">
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="NovelHubModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="NovelHubModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

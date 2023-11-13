@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e8d483b77634632840c2e6ee1059acc" Name="Diagram1" ZoomLevel="65">
+        <EntityTypeShape EntityType="NovelHubModel.BlacklistedNovel" Width="1.5" PointX="7.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NovelHubModel.BlacklistedUser" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NovelHubModel.Chapter" Width="1.5" PointX="7.5" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NovelHubModel.FavoriteNovel" Width="1.5" PointX="10.5" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="NovelHubModel.NovelCategory" Width="1.5" PointX="10.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NovelHubModel.Novel" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NovelHubModel.Review" Width="1.5" PointX="10.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NovelHubModel.Role" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NovelHubModel.User" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <AssociationConnector Association="NovelHubModel.FK__Blacklist__Novel__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__Blacklist__UserI__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__Chapters__NovelI__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__FavoriteN__Novel__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__FavoriteN__UserI__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__NovelCate__Novel__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__Novels__UserID__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__Reviews__NovelID__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__Reviews__UserID__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="NovelHubModel.FK__Users__RoleID__3A81B327" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NovelHubModel.NovelStatus" Width="1.5" PointX="3.375" PointY="0.875" />
+        <AssociationConnector Association="NovelHubModel.FK_Novels_Status1" />
+        <EntityTypeShape EntityType="NovelHubModel.Category" Width="1.5" PointX="0.75" PointY="0.875" />
+        <AssociationConnector Association="NovelHubModel.FK__NovelCate__Categ__44FF419A" />
+        <EntityTypeShape EntityType="NovelHubModel.Comment" Width="1.5" PointX="12.75" PointY="14.25" />
+        <AssociationConnector Association="NovelHubModel.FK__Comments__Chapte__17036CC0" />
+        <AssociationConnector Association="NovelHubModel.FK__Comments__UserID__17F790F9" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

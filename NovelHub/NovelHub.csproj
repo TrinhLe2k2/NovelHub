@@ -104,7 +104,12 @@
   <ItemGroup>
     <Content Include="Areas\Author\Contents\css\pagination.css" />
     <Content Include="Areas\Author\Contents\css\SimplifyLayout.css" />
-    <Content Include="Areas\Author\Contents\img\Poster\2.jpg" />
+    <Content Include="Areas\Author\Contents\img\Poster\Classroom-of-the-Elite.jpg" />
+    <Content Include="Areas\Author\Contents\img\Poster\CoChanNhan.jpg" />
+    <Content Include="Areas\Author\Contents\img\Poster\PhamNhanTuTien.jpg" />
+    <Content Include="Areas\Author\Contents\img\Poster\SoloLeveling.jpg" />
+    <Content Include="Areas\Author\Contents\img\Poster\ToiCuongTrangBucDaKiemHeThong.jpg" />
+    <Content Include="Areas\Author\Contents\img\Poster\VanCoToiCuongTong.jpg" />
     <Content Include="Contents\assets\ckeditor\adapters\jquery.js" />
     <Content Include="Contents\assets\ckeditor\build-config.js" />
     <Content Include="Contents\assets\ckeditor\ckeditor.js" />
@@ -2479,26 +2484,6 @@
     <Content Include="Contents\assets\font\fontawesome-free-6.4.0-web\svgs\solid\yen-sign.svg" />
     <Content Include="Contents\assets\font\fontawesome-free-6.4.0-web\svgs\solid\yin-yang.svg" />
     <Content Include="Contents\assets\font\fontawesome-free-6.4.0-web\svgs\solid\z.svg" />
-    <Content Include="Contents\assets\img\BookPoster\Classroom-of-the-Elite.jpg" />
-    <Content Include="Contents\assets\img\BookPoster\CoChanNhan.jpg" />
-    <Content Include="Contents\assets\img\BookPoster\PhamNhanTuTien.jpg" />
-    <Content Include="Contents\assets\img\BookPoster\SoloLeveling.jpg" />
-    <Content Include="Contents\assets\img\BookPoster\ToiCuongTrangBucDaKiemHeThong.jpg" />
-    <Content Include="Contents\assets\img\BookPoster\VanCoToiCuongTong.jpg" />
-    <Content Include="Contents\assets\img\CoverImgae\clr.jpg" />
-    <Content Include="Contents\assets\img\CoverImgae\cnn.jpg" />
-    <Content Include="Contents\assets\img\CoverImgae\pntt.jpg" />
-    <Content Include="Contents\assets\img\CoverImgae\solo-leveling-dau-la-linh-bong-toi-manh-nhat.jpg" />
-    <Content Include="Contents\assets\img\CoverImgae\tctbdkht.jpg" />
-    <Content Include="Contents\assets\img\CoverImgae\vctct.jpg" />
-    <Content Include="Contents\assets\img\haongocchantien.jpg" />
-    <Content Include="Contents\assets\img\logoWeb.png" />
-    <Content Include="Contents\assets\img\Poster\20230918_181424_Poster_1_CoChanNhan.jpg" />
-    <Content Include="Contents\assets\img\truyen1.jpg" />
-    <Content Include="Contents\assets\img\User\Avatar\12_Avatar_MadokaProfile.png" />
-    <Content Include="Contents\assets\img\User\Avatar\1_Avatar_1.jpg" />
-    <Content Include="Contents\assets\img\User\Background\12_Background_anh-bia-anime-ngau_042004278.jpg" />
-    <Content Include="Contents\assets\img\User\Background\1_Background_VanCoToiCuongTong.jpg" />
     <Content Include="Contents\assets\js\app.js" />
     <Content Include="Contents\assets\js\BoLoc.js" />
     <Content Include="Contents\assets\js\bootstrap.bundle.min.js" />
@@ -2511,11 +2496,13 @@
     <Content Include="Contents\css\UserFavouristNovel.css" />
     <Content Include="Contents\css\UserProfile.css" />
     <Content Include="Contents\css\ViewUserProfile.css" />
-    <Content Include="Contents\img\Avatar\1.jpg" />
-    <Content Include="Contents\img\Avatar\2.jpg" />
-    <Content Include="Contents\img\Background\1%282%29.jpg" />
-    <Content Include="Contents\img\Background\2%282%29.jpg" />
     <Content Include="Contents\css\PagedList.css" />
+    <Content Include="Contents\img\Avatar\Classroom-of-the-Elite.jpg" />
+    <Content Include="Contents\img\Avatar\CoChanNhan.jpg" />
+    <Content Include="Contents\img\Avatar\PhamNhanTuTien.jpg" />
+    <Content Include="Contents\img\Background\Classroom-of-the-Elite.jpg" />
+    <Content Include="Contents\img\Background\CoChanNhan.jpg" />
+    <Content Include="Contents\img\Background\PhamNhanTuTien.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Models\NovelHubEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -2527,6 +2514,7 @@
       <DependentUpon>NovelHubEntity.edmx</DependentUpon>
       <LastGenOutput>NovelHubEntity.cs</LastGenOutput>
     </Content>
+    <Content Include="SQL\dataNovelHub.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -2708,6 +2696,7 @@
     <Content Include="Views\Novel\FilterNovels.cshtml" />
     <Content Include="Views\User\ViewUserProfile.cshtml" />
     <Content Include="Views\Notification\NotFound.cshtml" />
+    <Content Include="SQL\CreateDatabase" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

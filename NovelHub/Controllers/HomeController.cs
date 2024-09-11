@@ -14,7 +14,7 @@ namespace NovelHub.Controllers
         [CheckLoginAuthorize]
         public ActionResult Index()
         {
-            //#region Check cookie
+            #region Check cookie
             //if (Request.Cookies["LoginCookie"] != null)
             //{
             //    string email = Request.Cookies["LoginCookie"]["Email"];
@@ -27,7 +27,7 @@ namespace NovelHub.Controllers
             //        Session["User"] = user;
             //    }
             //}
-            //#endregion
+            #endregion
 
             var favoriteNovels = db.Novels.Where(n=>n.BlacklistedNovels.Count == 0).OrderByDescending(n => n.FavoriteNovels.Count).Take(8).ToList();
             ViewBag.FavoriteNovels = favoriteNovels;
